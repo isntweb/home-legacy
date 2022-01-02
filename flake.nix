@@ -1,5 +1,5 @@
 {
-  description = "good programming language";
+  description = "isntweb super mega website";
 
   inputs = {
     nixpkgs.url = "nixpkgs/nixos-unstable";
@@ -26,16 +26,16 @@
         };
 
       in rec {
-        packages.joss = naersk-lib.buildPackage {
-          pname = "joss";
+        packages.home = naersk-lib.buildPackage {
+          pname = "home";
           root = ./.;
         };
 
         apps.joss = utils.lib.mkApp {
-          drv = packages.joss;
+          drv = packages.home;
         };
 
-        defaultPackage = packages.joss;
+        defaultPackage = packages.home;
 
 
         devShell = with pkgs; mkShell {
@@ -46,27 +46,15 @@
             lld
             # not sure
             pkg-config
-            # sqlite3 support for journal store
-            sqlite
-            # for `rug`
-            gnum4
             # for tbe web
             wasm-pack
-            # database management
-            diesel-cli
             # web development
             nodejs
             nodePackages.yarn
           ];
 
-          # for rust-analyzer; the target dir of the compiler for the project
-          OUT_DIR = "./target";
-          # store for all information
-          DATABASE_URL = "./journal/JOURNAL.sqlite3";
           # don't warn for dead code, unused imports or unused variables
           RUSTFLAGS = "-A dead_code -A unused_imports -A unused_variables";
-          # force cross compilation when there is potential for it
-          CARGO_FEATURE_FORCE_CROSS = "true";
         };
       });
 }
