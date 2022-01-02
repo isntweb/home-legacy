@@ -57,11 +57,12 @@
         overlay = final: prev: {};
 
         nixosModules = with lib; {
-          isntweb-home =
+          isntweb-home = { config, options, lib, pkgs, ... }:
             let cfg = options.modules.isntweb-home;
                 user = "isntweb-home";
                 group = "isntweb-home";
             in {
+
               options.modules.home = with lib; {
                 enable = mkEnableOption false;
               };
