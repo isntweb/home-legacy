@@ -1,3 +1,4 @@
+use std::env;
 use std::sync::{
     atomic::{AtomicUsize, Ordering},
     Arc,
@@ -104,11 +105,7 @@ impl Handler<server::Message> for WsChatSession {
 
 /// WebSocket message handler
 impl StreamHandler<Result<ws::Message, ws::ProtocolError>> for WsChatSession {
-    fn handle(
-        &mut self,
-        msg: Result<ws::Message, ws::ProtocolError>,
-        ctx: &mut Self::Context,
-    ) {
+    fn handle(&mut self, msg: Result<ws::Message, ws::ProtocolError>, ctx: &mut Self::Context) {
         let msg = match msg {
             Err(_) => {
                 ctx.stop();
@@ -232,6 +229,8 @@ impl WsChatSession {
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    let args: Vec<String> = env::args().collect();
+    let fsdir = args[1].clone();
     env_logger::init();
 
     // App state
@@ -240,6 +239,8 @@ async fn main() -> std::io::Result<()> {
 
     // Start chat server actor
     let server = server::ChatServer::new(app_state.clone()).start();
+
+    println!("{:?}", fsdir);
 
     // Create Http server with websocket support
     HttpServer::new(move || {
@@ -256,7 +257,7 @@ async fn main() -> std::io::Result<()> {
             // websocket
             .service(web::resource("/ws/").to(chat_route))
             // static resources
-            .service(fs::Files::new("/static/", "static/"))
+            .service(fs::Files::new("/static/", fsdir.to_string()))
     })
     .bind("127.0.0.1:8080")?
     .run()

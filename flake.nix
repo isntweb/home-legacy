@@ -8,7 +8,7 @@
     naersk.url = "github:nix-community/naersk";
   };
 
-  outputs = { self, nixpkgs, rust-overlay, utils, naersk }:
+  outputs = { self, nixpkgs, rust-overlay, utils, naersk, ... }:
     utils.lib.eachDefaultSystem (system:
       let
         inherit (lib) attrValues;
@@ -25,16 +25,33 @@
           rustc = rust_channel;
         };
 
-      in rec {
-        packages.isntweb-home = naersk-lib.buildPackage {
-          pname = "isntweb-home";
+
+        # The rust server package
+        isntweb-home-server = naersk-lib.buildPackage {
+          pname = "isntweb-home-server";
           root = ./.;
         };
 
-        apps.isntweb-home = utils.lib.mkApp {
-          drv = packages.isntweb-home;
+        # The static front-end as a derivation
+        static-sources = pkgs.stdenv.mkDerivation {
+          name = "isntweb-sources";
+          src = ./.;
+
+          phases = "installPhase";
+
+          installPhase = ''
+            mkdir -p $out/static
+            cp -r ${./static}/* $out/static
+          '';
         };
 
+        # a script executable passing the root dir to the package
+        isntweb-bundle = pkgs.writeScriptBin
+          "isntweb-serve" "${isntweb-home-server}/bin/isntweb-home-server ${static-sources}/static";
+
+      in rec {
+        packages.isntweb-home = isntweb-bundle;
+        apps.isntweb-home = packages.isntweb-home;
         defaultPackage = packages.isntweb-home;
 
         nixosModules = with lib; {
@@ -64,7 +81,7 @@
                   serviceConfig = {
                     User = user;
                     Group = group;
-                    ExecStart = "${packages.isntweb-home}/bin/isntweb-home";
+                    ExecStart = "${isntweb-bundle}/bin/isntweb-serve";
                     PrivateTmp = "true";
                     PrivateDevices = "true";
                     ProtectHome = "true";
@@ -74,6 +91,7 @@
                   wantedBy = [ "multi-user.target" ];
                 };
               };
+
           };
         };
 

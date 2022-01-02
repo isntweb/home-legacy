@@ -6,4 +6,5 @@ tmp/
 target/
 
 .direnv/*
+result
 !.direnv/.git-keep
