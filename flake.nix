@@ -54,6 +54,8 @@
         apps.isntweb-home = packages.isntweb-home;
         defaultPackage = packages.isntweb-home;
 
+        overlay = final: prev: {};
+
         nixosModules = with lib; {
           isntweb-home =
             let cfg = options.modules.isntweb-home;
