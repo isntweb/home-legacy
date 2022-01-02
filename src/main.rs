@@ -231,6 +231,7 @@ impl WsChatSession {
 async fn main() -> std::io::Result<()> {
     let args: Vec<String> = env::args().collect();
     let fsdir = args[1].clone();
+    let port = args[2].clone();
     env_logger::init();
 
     // App state
@@ -259,7 +260,7 @@ async fn main() -> std::io::Result<()> {
             // static resources
             .service(fs::Files::new("/static/", fsdir.to_string()))
     })
-    .bind("127.0.0.1:8080")?
+    .bind("127.0.0.1:".to_owned() + &port.to_string())?
     .run()
     .await
 }

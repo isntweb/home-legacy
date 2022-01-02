@@ -25,7 +25,6 @@
           rustc = rust_channel;
         };
 
-
         # The rust server package
         isntweb-home-server = naersk-lib.buildPackage {
           pname = "isntweb-home-server";
@@ -47,7 +46,8 @@
 
         # a script executable passing the root dir to the package
         isntweb-bundle = pkgs.writeScriptBin
-          "isntweb-serve" "${isntweb-home-server}/bin/isntweb-home-server ${static-sources}/static";
+          # port is the second arg
+          "isntweb-serve" "${isntweb-home-server}/bin/isntweb-home-server ${static-sources}/static 6200";
 
       in rec {
         packages.isntweb-home = isntweb-bundle;
