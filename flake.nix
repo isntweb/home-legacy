@@ -69,7 +69,7 @@
               isSystemUser = true;
             };
 
-            users.groups.vaultwarden = {};
+            users.groups.isntweb-home = {};
 
             # configure a systemd service to launh it
             systemd.services.isntweb-home = {
@@ -80,7 +80,7 @@
               serviceConfig = {
                 User = user;
                 Group = group;
-                ExecStart = "${isntweb-bundle}/bin/isntweb-serve";
+                ExecStart = "sh -c '${isntweb-bundle}/bin/isntweb-serve'";
                 PrivateTmp = "true";
                 PrivateDevices = "true";
                 ProtectHome = "true";
@@ -113,6 +113,8 @@
           # web development
           nodejs
           nodePackages.yarn
+
+          rust-analyzer
         ];
 
         # don't warn for dead code, unused imports or unused variables
