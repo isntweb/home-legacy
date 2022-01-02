@@ -6,7 +6,7 @@ let cfg = config.isntweb-home;
     group = "isntweb-home";
 
 in {
-  options.home = with lib; {
+  options.isntweb-home = with lib; {
     enable = mkEnableOption false;
   };
 
