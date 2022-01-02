@@ -1,7 +1,7 @@
 { config, options, lib, pkgs, ... }:
 
 with lib;
-let cfg = options.modules.isntweb-home;
+let cfg = config.isntweb-home;
     user = "isntweb-home";
     group = "isntweb-home";
 
