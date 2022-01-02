@@ -57,7 +57,6 @@
         let cfg = config.isntweb-home;
             user = "isntweb-home";
             group = "isntweb-home";
-
         in {
           options.isntweb-home = with lib; {
             enable = mkEnableOption false;
@@ -74,6 +73,7 @@
 
             # configure a systemd service to launh it
             systemd.services.isntweb-home = {
+              enable = true;
               aliases = [ "isntweb-home" ];
               after = [ "network.target" ];
               path = with pkgs; [ openssl ];
@@ -97,7 +97,6 @@
       # packages.isntweb-home = isntweb-bundle;
       # apps.isntweb-home = packages.isntweb-home;
       defaultPackage.${system} = isntweb-bundle;
-
       nixosModules.isntweb-home = isntwebHomeModule;
       nixosModule = nixosModules.isntweb-home;
 
