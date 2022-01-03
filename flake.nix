@@ -80,7 +80,7 @@
               serviceConfig = {
                 User = user;
                 Group = group;
-                ExecStart = "${pkgs.sh} -c '${isntweb-bundle}/bin/isntweb-serve'";
+                ExecStart = "${isntweb-bundle}/bin/isntweb-serve";
                 PrivateTmp = "true";
                 PrivateDevices = "true";
                 ProtectHome = "true";
