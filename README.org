@@ -1,0 +1,11 @@
+#+TITLE: to serve
+
+from this repo, after pushing:
+#+begin_src sh
+./cache
+#+end_src
+
+from server
+#+begin_src sh
+hey gc && sudo nixos-rebuild switch --impure --update-input isntweb-home
+#+end_src

@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+nix build && cd result/bin && cachix push isntweb ./isntweb-serve
