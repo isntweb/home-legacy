@@ -47,7 +47,7 @@
       };
 
       # a script executable passing the root dir to the package
-      isntweb-bundle = pkgs.writeScriptBin
+      isntweb-bundle = pkgs.writeShellScriptBin
         # port is the second arg
         "isntweb-serve" "${isntweb-home-server}/bin/isntweb-home-server ${static-sources}/static 6200";
 
@@ -80,7 +80,7 @@
               serviceConfig = {
                 User = user;
                 Group = group;
-                ExecStart = "sh -c '${isntweb-bundle}/bin/isntweb-serve'";
+                ExecStart = "${pkgs.sh} -c '${isntweb-bundle}/bin/isntweb-serve'";
                 PrivateTmp = "true";
                 PrivateDevices = "true";
                 ProtectHome = "true";
