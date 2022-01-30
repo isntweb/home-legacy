@@ -104,6 +104,8 @@
         buildInputs = [
           # all of rust unstable
           rust_channel
+          cargo
+          rust-analyzer
           # fast linking
           lld
           # not sure
