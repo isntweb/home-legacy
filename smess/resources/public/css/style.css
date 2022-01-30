@@ -1,0 +1,323 @@
+@import url("https://jakeisnt.github.io/styles/main.css");
+body {
+  font-size: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+#app {
+  background-color: whitesmoke;
+}
+
+/* login flow */
+.login-container {
+  display: grid;
+  width: 100vw;
+  height: 100vh;
+  grid-template-rows: 0.75fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr; 
+  grid-template-areas: ". error-tip-container ." ". login ." ". . .";
+}
+
+.login {
+  grid-area: login;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  justify-self: center;
+  flex-flow: center;
+  align-items: center;
+}
+
+.username-input {
+  margin:  1.25em 0;
+  text-align: center;
+}
+
+.start-chatting-button {
+  margin: 0;
+}
+.error-tip-container {
+  grid-area: error-tip-container;
+}
+
+.error-tip {
+  border: 2px solid red;
+  padding: 0.5em 1em;
+  text-align: center;
+  margin: 1em;
+  align: center;
+}
+
+/* chat flow */
+.chat-container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar {
+  background-color: whitesmoke;
+}
+
+.user-list {
+  padding: 0.5em;
+  display: flex;
+  flex-direction: row;
+}
+
+.userlist-username {
+  padding: 0 1em;
+}
+
+.header {
+  user-select: none;
+  max-height: 2.5em;
+  background-color: aquamarine;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.history {
+  padding: 0 0.5em;
+  margin-bottom: 0.5em;
+
+  flex-grow: 1;
+  background-color: white;
+  max-height: calc(100vh-200px);
+  overflow-y: scroll;
+}
+
+.text-input {
+  background-color: whitesmoke;
+}
+
+.username {
+  color: red;
+  text-decoration: underline;
+}
+
+.my-username {
+  color: blue;
+}
+
+.usermsg {
+  padding-bottom: 0;
+  padding-top: 0.25em;
+}
+
+.markdown-preview {
+  display: flex;
+  align-items: center;
+  padding-left: 0.5em;
+}
+
+.message {
+  padding-left: 0.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0.1em 0;
+}
+
+.message-buttons {
+  display: none;
+  max-height: 3.5em;
+  max-width: 10em;
+}
+
+.message:hover .message-buttons {
+  display: flex;
+}
+.message:focus .message-buttons {
+  display: flex;
+}
+
+.message:active .message-buttons {
+  display: flex;
+}
+
+.message-input {
+  width: 100%;
+  color: black;
+  border: 2px solid black;
+  margin: 0.5em 0.5em;
+  padding: 1em 1em;
+  background-color: white;
+  flex-grow: 1;
+}
+
+.preview-button {
+  margin: 1.2em;
+  background-color: white;
+  padding: 0 1em;
+}
+
+.preview-box {
+  border: 2px solid black;
+  margin: 0.5em 0.5em;
+  margin-bottom: 0;
+  padding: 0.5em;
+  background-color: white;
+  display: flex;
+  align-items: center;
+}
+
+.reply-preview {
+  font-size: 16px;
+  background-color: LightYellow;
+}
+
+.send-message-button {
+  border: 2px outset black;
+  height: 100%;
+  padding: 0.75em 0.25em;
+  color: black;
+  background-color: white;
+}
+
+.message-reply-box {
+  padding-left: 0.3em;
+  width: max-content;
+}
+
+.message-reply {
+  margin-top: 0.1em;
+  font-size: 16px;
+  background-color: LightYellow;
+  border: 2px solid black;
+  padding: 0.25em 0.5em;
+}
+
+@media only screen and (min-width: 500px)  {
+  .chat-container {
+    width: 80vw;
+    margin: auto;
+  }
+  .history {
+    padding: 2em 5em;
+  } 
+  .message-content {
+    flex-direction: row;
+  }
+  .message-buttons {
+    max-width: 99999999em;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+
+@media only screen and (min-width: 1400px)  {
+  .chat-container {
+    width: 40vw;
+  }
+  .history {
+    padding: 2em 10em;
+  } 
+}
+
+/* html element styles */
+img {
+  max-height: 10em;
+}
+
+p {
+  text-decoration: none;
+  margin: 0;
+}
+
+input {
+  color: black;
+  border: 2px solid black;
+  padding: 1em;
+  background-color: white;
+}
+
+button {
+  border: 2px solid black;
+  padding: 1em;
+  color: black;
+  background-color: white;
+
+  /* the rest of this is borrowed from https://github.com/thesephist/blocks.css/blob/master/src/blocks.css for now and slightly modified. */
+  display: block;
+  padding: 4px 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-sizing: border-box;
+  position: relative;
+  top: -2px;
+  left: -2px;
+  transition: transform 0.2s;
+  margin: 8px 6px 10px 6px;
+  z-index: 1;
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+}
+
+/* INTERACTIVE BLOCK STYLES */
+button::before {
+  content: "";
+  background: white;
+  border: 2px solid black;
+  box-sizing: border-box;
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  height: calc(100% + 6px);
+  width: calc(100% + 6px);
+  z-index: -1;
+}
+
+button:hover,
+button:focus {
+  transform: scale(0.9);
+}
+
+button::after {
+  content: "";
+  display: block;
+  box-sizing: border-box;
+  background: black;
+  border: 3px solid black;
+  height: calc(100% + 3px);
+  width: calc(100%);
+  position: absolute;
+  top: 3px;
+  right: 0;
+  z-index: -2;
+  transition: transform 0.2s;
+}
+
+button:hover::after,
+button:focus::after {
+  transform: translate(0, -3px);
+}
+
+button:active {
+  color: black;
+  transform: translate(0, 3px);
+}
+
+button:active::after {
+  transform: translate(0, -4px);
+}
+
+button:focus {
+  outline: none;
+}
+
+button.fixed {
+  cursor: initial;
+}

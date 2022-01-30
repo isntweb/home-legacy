@@ -116,7 +116,11 @@
           nodejs
           nodePackages.yarn
 
-          rust-analyzer
+          # client side
+          nixpkgs-fmt
+          leiningen
+          clojure
+          clojure-lsp
         ];
 
         # don't warn for dead code, unused imports or unused variables
