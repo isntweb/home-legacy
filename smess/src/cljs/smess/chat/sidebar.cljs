@@ -9,5 +9,4 @@
    [:marquee {:direction "right"}
     [:div {:class "user-list"}
      (doall (for [[k v] @users]
-              [:div {:class "userlist-username"}
-               ^{:key k} (username-box v app-state)]))]]])
+              [:div {:class "userlist-username"} ^{:key k} (username-box v app-state)]))]]])
